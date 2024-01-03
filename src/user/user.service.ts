@@ -31,7 +31,6 @@ export class UserService {
       return newUser;
     }
   }
-
   async findAll(): Promise<User[]> {
     return await this.prisma.user.findMany();
   }
@@ -71,5 +70,19 @@ export class UserService {
         },
       });
     }
+  }
+
+  createAdmin() {
+    return this.prisma.user.create({
+      data: {
+        fullname: 'admin',
+        email: 'admin@admin.com',
+        password: 'admin@123',
+        role: 'ADMIN',
+      },
+      select: {
+        id: true,
+      },
+    });
   }
 }

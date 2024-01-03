@@ -23,15 +23,22 @@ export class AuthService {
         email: true,
         password: true,
         fullname: true,
+        role: true,
       },
     });
     if (!user) throw new ConflictException(`Invalid Credential.`);
 
     if (user?.password !== password) throw new UnauthorizedException();
 
-    const payload = { id: user.id, uname: user.fullname };
-
+    const payload = { id: user.id, uname: user.fullname, role: user.role };
+    // TODO: CONVERT THIS INTO GENERICS
     return {
+      user: {
+        id: user.id,
+        email: user.email,
+        fullname: user.fullname,
+        role: user.role,
+      },
       access_token: await this.jwtService.signAsync(payload, {
         secret: process.env.JWT_SECRET,
       }),

@@ -15,4 +15,9 @@ export class UserController {
   findAll() {
     return this.userService.findAll();
   }
+
+  @Post('admin')
+  async createAdmin() {
+    return this.userService.createAdmin();
+  }
 }
